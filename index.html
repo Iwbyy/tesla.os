@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TESLA.OS Vinnytsia — Програмні роботи для Tesla</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #E31937;
+    --red-glow: rgba(227, 25, 55, 0.4);
+    --bg: #060608;
+    --bg2: #0d0d10;
+    --bg3: #111116;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --border: rgba(255,255,255,0.07);
+    --card: rgba(255,255,255,0.03);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background-size: 200px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(6,6,8,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #fff;
+  }
+  .nav-logo span { color: var(--red); }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: #fff; }
+
+  .nav-cta {
+    background: var(--red);
+    color: #fff !important;
+    padding: 10px 24px;
+    border-radius: 2px;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    transition: box-shadow 0.3s, transform 0.2s !important;
+  }
+  .nav-cta:hover {
+    box-shadow: 0 0 24px var(--red-glow) !important;
+    transform: translateY(-1px);
+    color: #fff !important;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 60px 80px;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(227,25,55,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(227,25,55,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(227,25,55,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(227,25,55,0.1);
+    border: 1px solid rgba(227,25,55,0.3);
+    color: var(--red);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 2px;
+    margin-bottom: 36px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(32px, 6vw, 80px); /* Слегка уменьшен минимум для мобилок */
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--red);
+    text-shadow: 0 0 40px var(--red-glow);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 520px;
+    font-weight: 400;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--red);
+    color: #fff;
+    text-decoration: none;
+    padding: 16px 36px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: box-shadow 0.3s, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 40px var(--red-glow);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 16px 36px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
+
+  .hero-stats {
+    position: absolute;
+    right: 60px;
+    bottom: 80px;
+    display: flex;
+    gap: 48px;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat { text-align: right; }
+  .stat-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 36px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+  }
+  .stat-num span { color: var(--red); }
+  .stat-label {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .section-desc {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 520px;
+    margin-bottom: 60px;
+  }
+
+  /* ── SERVICES ── */
+  #services {
+    padding: 100px 60px;
+    background: var(--bg2);
+  }
+
+  .services-header { margin-bottom: 60px; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .service-card {
+    background: var(--bg2);
+    padding: 36px 32px;
+    transition: background 0.3s;
+    position: relative;
+  }
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--red);
+    transition: width 0.4s ease;
+  }
+  .service-card:hover { background: var(--bg3); }
+  .service-card:hover::after { width: 100%; }
+
+  .service-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .service-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #fff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .service-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  /* ── WHY US ── */
+  #why {
+    padding: 100px 60px;
+    background: var(--bg);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .why-visual {
+    position: relative;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .why-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(227,25,55,0.15);
+    animation: rotate 20s linear infinite;
+  }
+  .why-ring:nth-child(1) { width: 340px; height: 340px; animation-duration: 30s; }
+  .why-ring:nth-child(2) { width: 240px; height: 240px; animation-direction: reverse; animation-duration: 20s; border-color: rgba(227,25,55,0.25); }
+  .why-ring:nth-child(3) { width: 140px; height: 140px; animation-duration: 12s; }
+  .why-ring::before {
+    content: '';
+    position: absolute;
+    top: -3px; left: 50%;
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--red);
+    transform: translateX(-50%);
+  }
+
+  .why-center {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .why-center-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .why-center-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .advantages { display: flex; flex-direction: column; gap: 28px; }
+
+  .advantage {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border-color 0.3s;
+  }
+  .advantage:hover { border-color: rgba(227,25,55,0.3); }
+
+  .adv-icon {
+    width: 44px; height: 44px;
+    background: rgba(227,25,55,0.1);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .adv-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .adv-text { font-size: 14px; color: var(--muted); }
+
+  /* ── CONTACTS ── */
+  #contacts {
+    padding: 100px 60px;
+    background: var(--bg2);
+  }
+
+  .contacts-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-methods { display: flex; flex-direction: column; gap: 16px; margin-top: 40px; }
+
+  .contact-method {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 28px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fff;
+    transition: border-color 0.3s, transform 0.2s;
+  }
+  .contact-method:hover {
+    border-color: rgba(227,25,55,0.4);
+    transform: translateX(6px);
+  }
+
+  .cm-icon {
+    width: 48px; height: 48px;
+    background: rgba(227,25,55,0.1);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .cm-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .cm-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .contact-info-block { margin-top: 40px; }
+
+  .info-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .info-row:last-child { border-bottom: none; }
+
+  .info-icon { font-size: 20px; width: 32px; text-align: center; }
+  .info-label { font-size: 12px; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; font-weight: 600; margin-bottom: 2px; }
+  .info-value { font-size: 16px; color: #fff; font-weight: 500; }
+
+  .contact-cta {
+    margin-top: 36px;
+    padding: 32px;
+    background: linear-gradient(135deg, rgba(227,25,55,0.12), rgba(227,25,55,0.04));
+    border: 1px solid rgba(227,25,55,0.3);
+    border-radius: 4px;
+    text-align: center;
+  }
+  .contact-cta p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .contact-cta strong { color: #fff; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg);
+  }
+  .footer-logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 16px;
+    font-weight: 900;
+    color: #fff;
+  }
+  .footer-logo span { color: var(--red); }
+  .footer-copy { font-size: 13px; color: var(--muted); }
+  .footer-disc {
+    font-size: 12px;
+    color: var(--muted);
+    opacity: 0.6;
+    max-width: 300px;
+    text-align: right;
+    line-height: 1.5;
+  }
+
+  /* ── SCROLL ANIMATION ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── MOBILE ADAPTATION ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .nav-logo { font-size: 18px; }
+    
+    #hero { padding: 120px 20px 60px; min-height: auto; }
+    h1 { font-size: 38px; margin-bottom: 20px; }
+    .hero-sub { font-size: 16px; margin-bottom: 32px; }
+    
+    .hero-stats { position: static; margin-top: 40px; justify-content: flex-start; gap: 30px; }
+    .stat-num { font-size: 28px; }
+
+    #services, #why, #contacts { padding: 60px 20px; }
+    .section-title { font-size: 30px; }
+    
+    .services-grid { grid-template-columns: 1fr; }
+    
+    .why-grid, .contacts-wrap { grid-template-columns: 1fr; gap: 40px; }
+    .why-visual { height: 280px; order: -1; }
+    .why-ring:nth-child(1) { width: 260px; height: 260px; }
+    .why-ring:nth-child(2) { width: 180px; height: 180px; }
+    .why-ring:nth-child(3) { width: 100px; height: 100px; }
+
+    .contact-method { padding: 16px 20px; }
+    .contact-cta { padding: 24px; }
+    
+    footer { flex-direction: column; gap: 16px; text-align: center; padding: 40px 20px; }
+    .footer-disc { text-align: center; max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">TESLA<span>.OS</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Послуги</a></li>
+    <li><a href="#why">Про нас</a></li>
+    <li><a href="#contacts" class="nav-cta">Зв'язатись</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Вінниця · Спеціалізація Tesla</div>
+    <h1>Програмний<br>сервіс для <em>Tesla</em></h1>
+    <p class="hero-sub">Прошивка, діагностика, активація прихованих функцій та відновлення ПЗ — всі роботи на рівні заводу Tesla.</p>
+    <div class="hero-actions">
+      <a href="#contacts" class="btn-primary">⚡ Записатись на сервіс</a>
+      <a href="#services" class="btn-ghost">Всі послуги →</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">20<span>+</span></div>
+      <div class="stat-label">Послуг</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">24<span>/7</span></div>
+      <div class="stat-label">Підтримка</div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="services-header reveal">
+    <div class="section-label">// Що ми робимо</div>
+    <h2 class="section-title">Послуги</h2>
+    <p class="section-desc">Повний спектр програмних робіт для всіх моделей Tesla — від діагностики до розширених налаштувань.</p>
+  </div>
+  <div class="services-grid">
+
+    <div class="service-card reveal">
+      <span class="service-icon">⚡</span>
+      <div class="service-name">Прошивка та оновлення ПЗ</div>
+      <div class="service-desc">Оновлення до останньої версії, відновлення після збоїв, прошивка ЕБУ та модулів.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-icon">🔍</span>
+      <div class="service-name">Діагностика Factory Mode</div>
+      <div class="service-desc">Повна діагностика в режимі заводського сервісу. Зчитування та очистка помилок всіх систем.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-icon">🔓</span>
+      <div class="service-name">Активація прихованих функцій</div>
+      <div class="service-desc">Розблокування можливостей, прихованих Tesla: додаткові режими, розширені налаштування.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-icon">🌍</span>
+      <div class="service-name">Перепрошивка під Європу</div>
+      <div class="service-desc">Retrofit-адаптація: Безкоштовна швидка зарядка по Європі, E-SIM для Європи, підшивка фар та стоп-сигналів.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-icon">🚗</span>
+      <div class="service-name">Автопілот</div>
+      <div class="service-desc">Встановлення та ремонт Автопілоту. Підключення та налаштування по всій Україні.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-icon">📊</span>
+      <div class="service-name">Коригування параметрів</div>
+      <div class="service-desc">Коригування пробігу MS / MX / MY / M3, скрутка спожитих кВт·год.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-icon">🌐</span>
+      <div class="service-name">Навігація та Інтернет</div>
+      <div class="service-desc">Підключення та налаштування будь якої навігації, інтернету та онлайн-сервісів Tesla.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-icon">👤</span>
+      <div class="service-name">Аккаунт Tesla</div>
+      <div class="service-desc">Прив'язка авто до аккаунту Tesla, відновлення доступу, налаштування профілю.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-icon">🔋</span>
+      <div class="service-name">Відновлення АКБ 16V</div>
+      <div class="service-desc">Відновлення та діагностика допоміжного акумулятора 16V на всіх моделях Tesla.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-icon">...</span>
+      <div class="service-name">І багато іншого</div>
+      <div class="service-desc">Ми надаємо ще більше послуг, пишіть і розберем кожну проблему індивідуально.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="why">
+  <div class="why-grid">
+    <div class="why-visual">
+      <div class="why-ring"></div>
+      <div class="why-ring"></div>
+      <div class="why-ring"></div>
+      <div class="why-center">
+        <span class="why-center-icon">⚡</span>
+        <div class="why-center-label">TESLA.OS</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label reveal">// Чому ми</div>
+      <h2 class="section-title reveal">Ми знаємо Tesla<br>зсередини</h2>
+      <div class="advantages">
+        <div class="advantage reveal">
+          <div class="adv-icon">🎯</div>
+          <div>
+            <div class="adv-title">Вузька спеціалізація</div>
+            <div class="adv-text">Тільки Tesla. Жодних універсальних сервісів — ми знаємо архітектуру кожної моделі на рівні заводу.</div>
+          </div>
+        </div>
+        <div class="advantage reveal">
+          <div class="adv-icon">🛠️</div>
+          <div>
+            <div class="adv-title">Рівень заводського ПЗ</div>
+            <div class="adv-text">Доступ до Factory Mode, заводських інструментів діагностики і прошивки — як у офіційному сервісі Tesla.</div>
+          </div>
+        </div>
+        <div class="advantage reveal">
+          <div class="adv-icon">⚡</div>
+          <div>
+            <div class="adv-title">Швидко і прозоро</div>
+            <div class="adv-text">Розповідаємо що робимо і чому. Без зайвих дій і прихованих доплат.</div>
+          </div>
+        </div>
+        <div class="advantage reveal">
+          <div class="adv-icon">📍</div>
+          <div>
+            <div class="adv-title">Вінниця — ми поруч</div>
+            <div class="adv-text">Локальний сервіс з особистим підходом. Швидко домовитись, зручно приїхати.</div>
+          </div>
+        </div>
+        <div class="advantage reveal">
+          <div class="adv-icon">🚗</div>
+          <div>
+            <div class="adv-title">Робота на виїзд</div>
+            <div class="adv-text">Якщо автомобіль не на ходу, або не можете під'їхати, ми приїдемо самі.</div>
+          </div>
+        </div>  
+        <div class="advantage reveal">
+          <div class="adv-icon">💻</div>
+          <div>
+            <div class="adv-title">Віддалена робота</div>
+            <div class="adv-text">Знаходитесь в другому місті/країні? Не біда, все що потрібно це ноутбук та спеціальний кабель.</div>
+          </div>
+        </div>  
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacts">
+  <div class="contacts-wrap">
+    <div>
+      <div class="section-label reveal">// Контакти</div>
+      <h2 class="section-title reveal">Записатись<br>на сервіс</h2>
+      <div class="contact-methods reveal">
+        <a href="tel:+380956835631" class="contact-method">
+          <div class="cm-icon">📞</div>
+          <div>
+            <div class="cm-label">Телефон</div>
+            <div class="cm-value">+38 (095) 683-56-31</div>
+          </div>
+        </a>
+        <a href="https://t.me/teslacode_vn" class="contact-method" target="_blank">
+          <div class="cm-icon">✈️</div>
+          <div>
+            <div class="cm-label">Telegram</div>
+            <div class="cm-value">@teslacode_vn</div>
+          </div>
+        </a>
+        <a href="https://wa.me/380956835631" class="contact-method" target="_blank">
+          <div class="cm-icon">💬</div>
+          <div>
+            <div class="cm-label">Viber/WhatsApp</div>
+            <div class="cm-value">+38 (095) 683-56-31</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <div class="contact-info-block reveal">
+        <div class="info-row">
+          <span class="info-icon">📍</span>
+          <div>
+            <div class="info-label">Місто</div>
+            <div class="info-value">Вінниця, Україна</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">🕐</span>
+          <div>
+            <div class="info-label">Графік роботи</div>
+            <div class="info-value">Пн–Нд: 9:00 – 0:00</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">🚗</span>
+          <div>
+            <div class="info-label">Спеціалізація</div>
+            <div class="info-value">Всі моделі Tesla</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-cta reveal">
+        <p>Напишіть або зателефонуйте — <strong>відповімо протягом години</strong> і підберемо зручний час.</p>
+        <a href="tel:+380956835631" class="btn-primary" style="display:inline-flex;">⚡ Зателефонувати зараз</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">TESLA<span>.OS</span></div>
+  <div class="footer-copy">© 2026 TESLA.OS Vinnytsia</div>
+  <div class="footer-disc">Незалежний сервіс. Не пов'язаний з Tesla, Inc.</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+
+  // Smooth nav highlight
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target && !a.classList.contains('nav-cta')) { 
+        e.preventDefault(); 
+        target.scrollIntoView({ behavior: 'smooth' }); 
+      }
+    });
+  });
+</script>
+</body>
+</html>
