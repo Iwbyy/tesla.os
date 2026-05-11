@@ -3,7 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TESLA.OS Vinnytsia — Програмні роботи для Tesla</title>
+<title>TESLA.OS — Програмування Tesla Вінниця | Прошивка, Діагностика, Автопілот</title>
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="Професійні програмні роботи для Tesla у Вінниці: прошивка, діагностика Factory Mode, активація прихованих функцій, ремонт Автопілоту. Виїзд та віддалена робота. ☎ +38 (095) 683-56-31">
+<meta name="keywords" content="програмування Tesla Вінниця, прошивка Тесла, діагностика Tesla, Tesla сервіс Вінниця, ремонт Автопілот, Tesla Factory Mode, прошивка Tesla Україна, скрутка пробігу Tesla, Tesla retrofit Європа, відновлення Tesla, TESLA.OS">
+<meta name="author" content="TESLA.OS">
+<meta name="robots" content="index, follow">
+<meta name="language" content="Ukrainian">
+<meta name="geo.region" content="UA-05">
+<meta name="geo.placename" content="Вінниця">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tesla-os.com/">
+<meta property="og:title" content="TESLA.OS — Програмування Tesla Вінниця">
+<meta property="og:description" content="Прошивка, діагностика, активація прихованих функцій та ремонт Автопілоту для всіх моделей Tesla. Вінниця, Україна. ☎ +38 (095) 683-56-31">
+<meta property="og:image" content="https://tesla-os.com/og-image.jpg">
+<meta property="og:locale" content="uk_UA">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TESLA.OS — Програмування Tesla Вінниця">
+<meta name="twitter:description" content="Професійні програмні роботи для Tesla: прошивка, діагностика, Автопілот. Вінниця.">
+<meta name="twitter:image" content="https://tesla-os.com/og-image.jpg">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://tesla-os.com/">
+
+<!-- Structured Data / JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutomotiveBusiness",
+  "name": "TESLA.OS",
+  "description": "Програмні роботи для Tesla: прошивка, діагностика Factory Mode, активація прихованих функцій, ремонт Автопілоту",
+  "url": "https://tesla-os.com",
+  "telephone": "+380956835631",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Вінниця",
+    "addressRegion": "Вінницька область",
+    "addressCountry": "UA"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "49.2331",
+    "longitude": "28.4682"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "09:00",
+    "closes": "00:00"
+  },
+  "priceRange": "$$",
+  "areaServed": {
+    "@type": "City",
+    "name": "Вінниця"
+  },
+  "serviceType": ["Tesla Software Programming", "Tesla Diagnostics", "Autopilot Repair", "Tesla Factory Mode"],
+  "sameAs": [
+    "https://t.me/teslacode_vn"
+  ]
+}
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -162,7 +227,7 @@
 
   h1 {
     font-family: 'Orbitron', monospace;
-    font-size: clamp(32px, 6vw, 80px); /* Слегка уменьшен минимум для мобилок */
+    font-size: clamp(42px, 6vw, 80px);
     font-weight: 900;
     line-height: 1.05;
     letter-spacing: -0.01em;
@@ -560,40 +625,116 @@
     transform: translateY(0);
   }
 
-  /* ── MOBILE ADAPTATION ── */
   @media (max-width: 900px) {
-    nav { padding: 16px 20px; }
-    .nav-links { display: none; }
+    nav { padding: 16px 24px; }
     .nav-logo { font-size: 18px; }
+    .nav-links { display: none; }
     
-    #hero { padding: 120px 20px 60px; min-height: auto; }
-    h1 { font-size: 38px; margin-bottom: 20px; }
+    #hero { 
+      padding: 100px 24px 60px;
+      min-height: auto;
+    }
+    .hero-badge { font-size: 10px; padding: 6px 14px; margin-bottom: 24px; }
+    h1 { font-size: 36px !important; margin-bottom: 20px; }
     .hero-sub { font-size: 16px; margin-bottom: 32px; }
-    
-    .hero-stats { position: static; margin-top: 40px; justify-content: flex-start; gap: 30px; }
+    .hero-actions { gap: 12px; flex-direction: column; }
+    .btn-primary, .btn-ghost { 
+      width: 100%;
+      justify-content: center;
+      padding: 14px 28px;
+      font-size: 13px;
+    }
+    .hero-stats { 
+      position: static;
+      margin-top: 40px;
+      justify-content: flex-start;
+      gap: 32px;
+    }
     .stat-num { font-size: 28px; }
-
-    #services, #why, #contacts { padding: 60px 20px; }
-    .section-title { font-size: 30px; }
+    .stat-label { font-size: 11px; }
     
-    .services-grid { grid-template-columns: 1fr; }
+    #services, #why, #contacts { padding: 60px 24px; }
     
-    .why-grid, .contacts-wrap { grid-template-columns: 1fr; gap: 40px; }
-    .why-visual { height: 280px; order: -1; }
-    .why-ring:nth-child(1) { width: 260px; height: 260px; }
-    .why-ring:nth-child(2) { width: 180px; height: 180px; }
+    .section-title { font-size: 32px !important; margin-bottom: 12px; }
+    .section-desc { font-size: 15px; margin-bottom: 40px; }
+    
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: 1px;
+    }
+    .service-card { padding: 28px 24px; }
+    .service-icon { font-size: 24px; margin-bottom: 12px; }
+    .service-name { font-size: 12px; }
+    .service-desc { font-size: 13px; }
+    
+    .why-grid, .contacts-wrap { 
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .why-visual { 
+      height: 240px;
+      order: 2;
+    }
+    .why-ring:nth-child(1) { width: 220px; height: 220px; }
+    .why-ring:nth-child(2) { width: 160px; height: 160px; }
     .why-ring:nth-child(3) { width: 100px; height: 100px; }
-
-    .contact-method { padding: 16px 20px; }
-    .contact-cta { padding: 24px; }
+    .why-center-icon { font-size: 36px; }
     
-    footer { flex-direction: column; gap: 16px; text-align: center; padding: 40px 20px; }
-    .footer-disc { text-align: center; max-width: 100%; }
+    .advantage { 
+      padding: 20px;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .adv-icon { width: 40px; height: 40px; font-size: 18px; }
+    .adv-title { font-size: 12px; }
+    .adv-text { font-size: 13px; }
+    
+    .contact-method { 
+      padding: 20px;
+      gap: 16px;
+    }
+    .contact-method:hover { transform: translateX(0); }
+    .cm-icon { width: 44px; height: 44px; font-size: 20px; }
+    .cm-label { font-size: 10px; }
+    .cm-value { font-size: 14px; }
+    
+    .contact-info-block { margin-top: 32px; }
+    .info-row { padding: 16px 0; }
+    .info-icon { font-size: 18px; }
+    .info-value { font-size: 15px; }
+    
+    .contact-cta { 
+      padding: 24px 20px;
+      margin-top: 28px;
+    }
+    .contact-cta p { font-size: 13px; margin-bottom: 16px; }
+    
+    footer { 
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      padding: 32px 24px;
+    }
+    .footer-logo { font-size: 15px; }
+    .footer-copy { font-size: 12px; }
+    .footer-disc { 
+      text-align: center;
+      max-width: 100%;
+      font-size: 11px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h1 { font-size: 32px !important; }
+    .hero-sub { font-size: 15px; }
+    .section-title { font-size: 28px !important; }
+    .btn-primary, .btn-ghost { font-size: 12px; padding: 12px 24px; }
   }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-logo">TESLA<span>.OS</span></div>
   <ul class="nav-links">
@@ -603,6 +744,7 @@
   </ul>
 </nav>
 
+<!-- HERO -->
 <section id="hero">
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
@@ -627,6 +769,7 @@
   </div>
 </section>
 
+<!-- SERVICES -->
 <section id="services">
   <div class="services-header reveal">
     <div class="section-label">// Що ми робимо</div>
@@ -698,6 +841,7 @@
   </div>
 </section>
 
+<!-- WHY US -->
 <section id="why">
   <div class="why-grid">
     <div class="why-visual">
@@ -761,6 +905,7 @@
   </div>
 </section>
 
+<!-- CONTACTS -->
 <section id="contacts">
   <div class="contacts-wrap">
     <div>
@@ -824,6 +969,7 @@
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-logo">TESLA<span>.OS</span></div>
   <div class="footer-copy">© 2026 TESLA.OS Vinnytsia</div>
@@ -847,10 +993,7 @@
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
-      if (target && !a.classList.contains('nav-cta')) { 
-        e.preventDefault(); 
-        target.scrollIntoView({ behavior: 'smooth' }); 
-      }
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
 </script>
