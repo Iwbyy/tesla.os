@@ -5,67 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TESLA.OS — Програмування Tesla Вінниця | Прошивка, Діагностика, Автопілот</title>
 
-<!-- SEO Meta Tags -->
-<meta name="description" content="Професійні програмні роботи для Tesla у Вінниці: прошивка, діагностика Factory Mode, активація прихованих функцій, ремонт Автопілоту. Виїзд та віддалена робота. ☎ +38 (095) 683-56-31">
-<meta name="keywords" content="програмування Tesla Вінниця, прошивка Тесла, діагностика Tesla, Tesla сервіс Вінниця, ремонт Автопілот, Tesla Factory Mode, прошивка Tesla Україна, скрутка пробігу Tesla, Tesla retrofit Європа, відновлення Tesla, TESLA.OS">
-<meta name="author" content="TESLA.OS">
+<meta name="description" content="Професійні програмні роботи для Tesla та Rivian у Вінниці та Львові: прошивка, діагностика, активація функцій. ☎ +38 (095) 683-56-31">
 <meta name="robots" content="index, follow">
-<meta name="language" content="Ukrainian">
-<meta name="geo.region" content="UA-05">
-<meta name="geo.placename" content="Вінниця">
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://tesla-os.com/">
-<meta property="og:title" content="TESLA.OS — Програмування Tesla Вінниця">
-<meta property="og:description" content="Прошивка, діагностика, активація прихованих функцій та ремонт Автопілоту для всіх моделей Tesla. Вінниця, Україна. ☎ +38 (095) 683-56-31">
-<meta property="og:image" content="https://tesla-os.com/og-image.jpg">
-<meta property="og:locale" content="uk_UA">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="TESLA.OS — Програмування Tesla Вінниця">
-<meta name="twitter:description" content="Професійні програмні роботи для Tesla: прошивка, діагностика, Автопілот. Вінниця.">
-<meta name="twitter:image" content="https://tesla-os.com/og-image.jpg">
-
-<!-- Canonical URL -->
-<link rel="canonical" href="https://tesla-os.com/">
-
-<!-- Structured Data / JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "AutomotiveBusiness",
   "name": "TESLA.OS",
-  "description": "Програмні роботи для Tesla: прошивка, діагностика Factory Mode, активація прихованих функцій, ремонт Автопілоту",
+  "description": "Програмні роботи для Tesla: прошивка, діагностика Factory Mode, ремонт Автопілоту",
   "url": "https://tesla-os.com",
   "telephone": "+380956835631",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Вінниця",
-    "addressRegion": "Вінницька область",
-    "addressCountry": "UA"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "49.2331",
-    "longitude": "28.4682"
-  },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    "opens": "09:00",
-    "closes": "00:00"
-  },
-  "priceRange": "$$",
-  "areaServed": {
-    "@type": "City",
-    "name": "Вінниця"
-  },
-  "serviceType": ["Tesla Software Programming", "Tesla Diagnostics", "Autopilot Repair", "Tesla Factory Mode"],
-  "sameAs": [
-    "https://t.me/teslacode_vn"
-  ]
+  "sameAs": ["https://t.me/teslacode_vn"]
 }
 </script>
 
@@ -74,8 +25,8 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --red: #E31937;
-    --red-glow: rgba(227, 25, 55, 0.4);
+    --accent: #E31937;
+    --accent-glow: rgba(227, 25, 55, 0.4);
     --bg: #060608;
     --bg2: #0d0d10;
     --bg3: #111116;
@@ -122,15 +73,62 @@
     border-bottom: 1px solid var(--border);
   }
 
-  .nav-logo {
+  /* ── BRAND SWITCHER ── */
+  .brand-switcher {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .brand-btn {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 7px 12px;
+    border-radius: 3px;
+    transition: background 0.2s;
+  }
+  .brand-btn:hover { background: rgba(255,255,255,0.05); }
+
+  .brand-logo-img {
+    height: 28px;
+    width: auto;
+    transition: opacity 0.35s;
+  }
+
+  .brand-logo-text {
     font-family: 'Orbitron', monospace;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 900;
     letter-spacing: 0.1em;
-    color: #fff;
+    white-space: nowrap;
+    transition: color 0.35s;
   }
-  .nav-logo span { color: var(--red); }
+  .brand-logo-text .dot {
+    transition: color 0.35s;
+  }
 
+  /* Active = bright */
+  .brand-btn.active .brand-logo-text { color: #fff; }
+  .brand-btn.active .brand-logo-text .dot { color: var(--accent); }
+  .brand-btn.active .brand-logo-img { opacity: 1; }
+
+  /* Inactive = dim */
+  .brand-btn.inactive .brand-logo-text { color: rgba(255,255,255,0.18); }
+  .brand-btn.inactive .brand-logo-text .dot { color: rgba(255,255,255,0.18); }
+  .brand-btn.inactive .brand-logo-img { opacity: 0.18; }
+
+  .brand-divider {
+    width: 1px;
+    height: 22px;
+    background: rgba(255,255,255,0.12);
+    margin: 0 6px;
+  }
+
+  /* ── NAV LINKS ── */
   .nav-links {
     display: flex;
     gap: 40px;
@@ -148,7 +146,7 @@
   .nav-links a:hover { color: #fff; }
 
   .nav-cta {
-    background: var(--red);
+    background: var(--accent);
     color: #fff !important;
     padding: 10px 24px;
     border-radius: 2px;
@@ -157,9 +155,8 @@
     transition: box-shadow 0.3s, transform 0.2s !important;
   }
   .nav-cta:hover {
-    box-shadow: 0 0 24px var(--red-glow) !important;
+    box-shadow: 0 0 24px var(--accent-glow) !important;
     transform: translateY(-1px);
-    color: #fff !important;
   }
 
   /* ── HERO ── */
@@ -175,9 +172,6 @@
   .hero-grid {
     position: absolute;
     inset: 0;
-    background-image:
-      linear-gradient(rgba(227,25,55,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(227,25,55,0.04) 1px, transparent 1px);
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
   }
@@ -186,23 +180,19 @@
     position: absolute;
     top: -200px; right: -200px;
     width: 800px; height: 800px;
-    background: radial-gradient(circle, rgba(227,25,55,0.12) 0%, transparent 70%);
     pointer-events: none;
   }
 
   .hero-content {
     position: relative;
     z-index: 1;
-    max-width: 800px;
+    max-width: 680px;
   }
 
   .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(227,25,55,0.1);
-    border: 1px solid rgba(227,25,55,0.3);
-    color: var(--red);
     font-size: 11px;
     letter-spacing: 0.25em;
     text-transform: uppercase;
@@ -211,11 +201,12 @@
     border-radius: 2px;
     margin-bottom: 36px;
     animation: fadeUp 0.6s ease both;
+    color: var(--accent);
   }
   .hero-badge::before {
     content: '';
     width: 6px; height: 6px;
-    background: var(--red);
+    background: var(--accent);
     border-radius: 50%;
     animation: pulse 2s ease infinite;
   }
@@ -236,8 +227,8 @@
   }
   h1 em {
     font-style: normal;
-    color: var(--red);
-    text-shadow: 0 0 40px var(--red-glow);
+    color: var(--accent);
+    text-shadow: 0 0 40px var(--accent-glow);
   }
 
   .hero-sub {
@@ -257,8 +248,8 @@
   }
 
   .btn-primary {
-    background: var(--red);
-    color: #fff;
+    background: var(--accent);
+    color: #000;
     text-decoration: none;
     padding: 16px 36px;
     font-family: 'Rajdhani', sans-serif;
@@ -273,7 +264,7 @@
     gap: 10px;
   }
   .btn-primary:hover {
-    box-shadow: 0 0 40px var(--red-glow);
+    box-shadow: 0 0 40px var(--accent-glow);
     transform: translateY(-2px);
   }
 
@@ -292,14 +283,38 @@
   }
   .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
 
-  .hero-stats {
+  /* ── HERO RIGHT: car + stats ── */
+  .hero-right {
     position: absolute;
     right: 60px;
-    bottom: 80px;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
-    gap: 48px;
-    animation: fadeUp 0.6s 0.4s ease both;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 28px;
+    z-index: 1;
+    animation: fadeRight 0.7s 0.35s ease both;
   }
+
+  @keyframes fadeRight {
+    from { opacity: 0; transform: translateY(calc(-50% + 20px)); }
+    to   { opacity: 1; transform: translateY(-50%); }
+  }
+
+  .hero-car-img {
+    width: clamp(260px, 28vw, 460px);
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    justify-content: flex-end;
+  }
+
   .stat { text-align: right; }
   .stat-num {
     font-family: 'Orbitron', monospace;
@@ -308,7 +323,7 @@
     color: #fff;
     line-height: 1;
   }
-  .stat-num span { color: var(--red); }
+  .stat-num span { color: var(--accent); }
   .stat-label {
     font-size: 12px;
     letter-spacing: 0.15em;
@@ -329,7 +344,7 @@
     font-size: 11px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--red);
+    color: var(--accent);
     font-weight: 700;
     margin-bottom: 12px;
   }
@@ -352,7 +367,6 @@
     padding: 100px 60px;
     background: var(--bg2);
   }
-
   .services-header { margin-bottom: 60px; }
 
   .services-grid {
@@ -376,17 +390,13 @@
     position: absolute;
     bottom: 0; left: 0;
     width: 0; height: 2px;
-    background: var(--red);
+    background: var(--accent);
     transition: width 0.4s ease;
   }
   .service-card:hover { background: var(--bg3); }
   .service-card:hover::after { width: 100%; }
 
-  .service-icon {
-    font-size: 28px;
-    margin-bottom: 16px;
-    display: block;
-  }
+  .service-icon { font-size: 28px; margin-bottom: 16px; display: block; }
   .service-name {
     font-family: 'Orbitron', monospace;
     font-size: 13px;
@@ -396,12 +406,7 @@
     margin-bottom: 10px;
     text-transform: uppercase;
   }
-  .service-desc {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.6;
-    font-weight: 400;
-  }
+  .service-desc { font-size: 14px; color: var(--muted); line-height: 1.6; font-weight: 400; }
 
   /* ── WHY US ── */
   #why {
@@ -501,10 +506,7 @@
   .adv-text { font-size: 14px; color: var(--muted); }
 
   /* ── CONTACTS ── */
-  #contacts {
-    padding: 100px 60px;
-    background: var(--bg2);
-  }
+  #contacts { padding: 100px 60px; background: var(--bg2); }
 
   .contacts-wrap {
     display: grid;
@@ -542,20 +544,8 @@
     font-size: 22px;
     flex-shrink: 0;
   }
-  .cm-label {
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-  .cm-value {
-    font-family: 'Orbitron', monospace;
-    font-size: 15px;
-    font-weight: 700;
-    color: #fff;
-  }
+  .cm-label { font-size: 11px; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; font-weight: 600; margin-bottom: 4px; }
+  .cm-value { font-family: 'Orbitron', monospace; font-size: 15px; font-weight: 700; color: #fff; }
 
   .contact-info-block { margin-top: 40px; }
 
@@ -575,17 +565,10 @@
   .contact-cta {
     margin-top: 36px;
     padding: 32px;
-    background: linear-gradient(135deg, rgba(227,25,55,0.12), rgba(227,25,55,0.04));
-    border: 1px solid rgba(227,25,55,0.3);
     border-radius: 4px;
     text-align: center;
   }
-  .contact-cta p {
-    font-size: 14px;
-    color: var(--muted);
-    margin-bottom: 20px;
-    line-height: 1.6;
-  }
+  .contact-cta p { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
   .contact-cta strong { color: #fff; }
 
   /* ── FOOTER ── */
@@ -597,22 +580,10 @@
     justify-content: space-between;
     background: var(--bg);
   }
-  .footer-logo {
-    font-family: 'Orbitron', monospace;
-    font-size: 16px;
-    font-weight: 900;
-    color: #fff;
-  }
-  .footer-logo span { color: var(--red); }
+  .footer-logo { font-family: 'Orbitron', monospace; font-size: 16px; font-weight: 900; color: #fff; }
+  .footer-logo span { color: var(--accent); }
   .footer-copy { font-size: 13px; color: var(--muted); }
-  .footer-disc {
-    font-size: 12px;
-    color: var(--muted);
-    opacity: 0.6;
-    max-width: 300px;
-    text-align: right;
-    line-height: 1.5;
-  }
+  .footer-disc { font-size: 12px; color: var(--muted); opacity: 0.6; max-width: 300px; text-align: right; line-height: 1.5; }
 
   /* ── SCROLL ANIMATION ── */
   .reveal {
@@ -620,110 +591,80 @@
     transform: translateY(32px);
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── BRAND VISIBILITY ── */
+  .brand-content { display: none; }
+  .brand-content.active { display: block; }
+
+  /* Inline brand spans */
+  .b-tesla, .b-rivian { display: none; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 1100px) {
+    .hero-right { right: 30px; }
+    .hero-car-img { width: clamp(200px, 24vw, 380px); }
   }
 
   @media (max-width: 900px) {
-    nav { padding: 16px 24px; }
-    .nav-logo { font-size: 18px; }
+    nav { padding: 16px 20px; }
+    .brand-logo-text { font-size: 15px; }
+    .brand-logo-img { height: 22px; }
     .nav-links { display: none; }
-    
-    #hero { 
-      padding: 100px 24px 60px;
-      min-height: auto;
-    }
+
+    #hero { padding: 100px 24px 60px; min-height: auto; flex-direction: column; align-items: flex-start; }
     .hero-badge { font-size: 10px; padding: 6px 14px; margin-bottom: 24px; }
     h1 { font-size: 36px !important; margin-bottom: 20px; }
     .hero-sub { font-size: 16px; margin-bottom: 32px; }
     .hero-actions { gap: 12px; flex-direction: column; }
-    .btn-primary, .btn-ghost { 
-      width: 100%;
-      justify-content: center;
-      padding: 14px 28px;
-      font-size: 13px;
-    }
-    .hero-stats { 
+    .btn-primary, .btn-ghost { width: 100%; justify-content: center; padding: 14px 28px; font-size: 13px; }
+
+    .hero-right {
       position: static;
-      margin-top: 40px;
-      justify-content: flex-start;
-      gap: 32px;
+      transform: none;
+      align-items: center;
+      width: 100%;
+      margin-top: 36px;
+      animation: fadeUp 0.7s 0.35s ease both;
     }
+    .hero-car-img { width: 100%; max-width: 340px; }
+    .hero-stats { justify-content: center; gap: 32px; }
+    .stat { text-align: center; }
     .stat-num { font-size: 28px; }
-    .stat-label { font-size: 11px; }
-    
+
     #services, #why, #contacts { padding: 60px 24px; }
-    
     .section-title { font-size: 32px !important; margin-bottom: 12px; }
     .section-desc { font-size: 15px; margin-bottom: 40px; }
-    
-    .services-grid {
-      grid-template-columns: 1fr;
-      gap: 1px;
-    }
+    .services-grid { grid-template-columns: 1fr; }
     .service-card { padding: 28px 24px; }
-    .service-icon { font-size: 24px; margin-bottom: 12px; }
     .service-name { font-size: 12px; }
     .service-desc { font-size: 13px; }
-    
-    .why-grid, .contacts-wrap { 
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-    .why-visual { 
-      height: 240px;
-      order: 2;
-    }
+
+    .why-grid, .contacts-wrap { grid-template-columns: 1fr; gap: 40px; }
+    .why-visual { height: 240px; order: 2; }
     .why-ring:nth-child(1) { width: 220px; height: 220px; }
     .why-ring:nth-child(2) { width: 160px; height: 160px; }
     .why-ring:nth-child(3) { width: 100px; height: 100px; }
     .why-center-icon { font-size: 36px; }
-    
-    .advantage { 
-      padding: 20px;
-      flex-direction: column;
-      gap: 16px;
-    }
+    .advantage { padding: 20px; flex-direction: column; gap: 16px; }
     .adv-icon { width: 40px; height: 40px; font-size: 18px; }
     .adv-title { font-size: 12px; }
     .adv-text { font-size: 13px; }
-    
-    .contact-method { 
-      padding: 20px;
-      gap: 16px;
-    }
+
+    .contact-method { padding: 20px; gap: 16px; }
     .contact-method:hover { transform: translateX(0); }
     .cm-icon { width: 44px; height: 44px; font-size: 20px; }
-    .cm-label { font-size: 10px; }
     .cm-value { font-size: 14px; }
-    
     .contact-info-block { margin-top: 32px; }
     .info-row { padding: 16px 0; }
-    .info-icon { font-size: 18px; }
     .info-value { font-size: 15px; }
-    
-    .contact-cta { 
-      padding: 24px 20px;
-      margin-top: 28px;
-    }
+    .contact-cta { padding: 24px 20px; margin-top: 28px; }
     .contact-cta p { font-size: 13px; margin-bottom: 16px; }
-    
-    footer { 
-      flex-direction: column;
-      gap: 12px;
-      text-align: center;
-      padding: 32px 24px;
-    }
-    .footer-logo { font-size: 15px; }
-    .footer-copy { font-size: 12px; }
-    .footer-disc { 
-      text-align: center;
-      max-width: 100%;
-      font-size: 11px;
-    }
+
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
+    .footer-disc { text-align: center; max-width: 100%; font-size: 11px; }
   }
-  
+
   @media (max-width: 480px) {
     h1 { font-size: 32px !important; }
     .hero-sub { font-size: 15px; }
@@ -736,7 +677,18 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">TESLA<span>.OS</span></div>
+  <div class="brand-switcher">
+    <button class="brand-btn active" id="btn-tesla" onclick="setBrand('tesla')">
+      <img src="teslalogo.png" alt="" class="brand-logo-img">
+      <span class="brand-logo-text">TESLA<span class="dot">.OS</span></span>
+    </button>
+    <div class="brand-divider"></div>
+    <button class="brand-btn inactive" id="btn-rivian" onclick="setBrand('rivian')">
+      <img src="rivianlogo.png" alt="" class="brand-logo-img">
+      <span class="brand-logo-text">RIVIAN<span class="dot">.OS</span></span>
+    </button>
+  </div>
+
   <ul class="nav-links">
     <li><a href="#services">Послуги</a></li>
     <li><a href="#why">Про нас</a></li>
@@ -746,25 +698,32 @@
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
+  <div class="hero-grid" id="hero-grid"></div>
+  <div class="hero-glow" id="hero-glow"></div>
+
   <div class="hero-content">
-    <div class="hero-badge">Вінниця · Спеціалізація Tesla</div>
-    <h1>Програмний<br>сервіс для <em>Tesla</em></h1>
-    <p class="hero-sub">Прошивка, діагностика, активація прихованих функцій та відновлення ПЗ — всі роботи на рівні заводу Tesla.</p>
+    <div class="hero-badge" id="hero-badge"></div>
+
+    <h1 id="hero-h1"></h1>
+    <p class="hero-sub" id="hero-sub"></p>
+
     <div class="hero-actions">
       <a href="#contacts" class="btn-primary">⚡ Записатись на сервіс</a>
       <a href="#services" class="btn-ghost">Всі послуги →</a>
     </div>
   </div>
-  <div class="hero-stats">
-    <div class="stat">
-      <div class="stat-num">20<span>+</span></div>
-      <div class="stat-label">Послуг</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">24<span>/7</span></div>
-      <div class="stat-label">Підтримка</div>
+
+  <div class="hero-right">
+    <img src="tesla.png" alt="Tesla" class="hero-car-img" id="hero-car">
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num" id="stat-services">10<span>+</span></div>
+        <div class="stat-label">Послуг</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="stat-cities"></div>
+        <div class="stat-label">Регіони</div>
+      </div>
     </div>
   </div>
 </section>
@@ -774,70 +733,34 @@
   <div class="services-header reveal">
     <div class="section-label">// Що ми робимо</div>
     <h2 class="section-title">Послуги</h2>
-    <p class="section-desc">Повний спектр програмних робіт для всіх моделей Tesla — від діагностики до розширених налаштувань.</p>
+    <p class="section-desc" id="services-desc"></p>
   </div>
-  <div class="services-grid">
 
-    <div class="service-card reveal">
-      <span class="service-icon">⚡</span>
-      <div class="service-name">Прошивка та оновлення ПЗ</div>
-      <div class="service-desc">Оновлення до останньої версії, відновлення після збоїв, прошивка ЕБУ та модулів.</div>
-    </div>
+  <!-- TESLA -->
+  <div class="services-grid brand-content active" id="services-tesla">
+    <div class="service-card reveal"><span class="service-icon">⚡</span><div class="service-name">Прошивка та оновлення ПЗ</div><div class="service-desc">Оновлення до останньої версії, відновлення після збоїв, прошивка ЕБУ та модулів.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🔍</span><div class="service-name">Діагностика Factory Mode</div><div class="service-desc">Повна діагностика в режимі заводського сервісу. Зчитування та очистка помилок всіх систем.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🔓</span><div class="service-name">Активація прихованих функцій</div><div class="service-desc">Розблокування можливостей, прихованих Tesla: додаткові режими, розширені налаштування.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🌍</span><div class="service-name">Перепрошивка під Європу</div><div class="service-desc">Retrofit-адаптація: Безкоштовна швидка зарядка по Європі, E-SIM, підшивка фар та стоп-сигналів.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🚗</span><div class="service-name">Автопілот</div><div class="service-desc">Встановлення та ремонт Автопілоту. Підключення та налаштування по всій Україні.</div></div>
+    <div class="service-card reveal"><span class="service-icon">📊</span><div class="service-name">Коригування параметрів</div><div class="service-desc">Коригування пробігу MS / MX / MY / M3, скрутка спожитих кВт·год.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🌐</span><div class="service-name">Навігація та Інтернет</div><div class="service-desc">Підключення та налаштування будь якої навігації, інтернету та онлайн-сервісів Tesla.</div></div>
+    <div class="service-card reveal"><span class="service-icon">👤</span><div class="service-name">Аккаунт Tesla</div><div class="service-desc">Прив'язка авто до аккаунту Tesla, відновлення доступу, налаштування профілю.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🔋</span><div class="service-name">Відновлення АКБ 16V</div><div class="service-desc">Відновлення та діагностика допоміжного акумулятора 16V на всіх моделях Tesla.</div></div>
+    <div class="service-card reveal"><span class="service-icon">...</span><div class="service-name">І багато іншого</div><div class="service-desc">Ми надаємо ще більше послуг, пишіть і розберем кожну проблему індивідуально.</div></div>
+  </div>
 
-    <div class="service-card reveal">
-      <span class="service-icon">🔍</span>
-      <div class="service-name">Діагностика Factory Mode</div>
-      <div class="service-desc">Повна діагностика в режимі заводського сервісу. Зчитування та очистка помилок всіх систем.</div>
-    </div>
-
-    <div class="service-card reveal">
-      <span class="service-icon">🔓</span>
-      <div class="service-name">Активація прихованих функцій</div>
-      <div class="service-desc">Розблокування можливостей, прихованих Tesla: додаткові режими, розширені налаштування.</div>
-    </div>
-
-    <div class="service-card reveal">
-      <span class="service-icon">🌍</span>
-      <div class="service-name">Перепрошивка під Європу</div>
-      <div class="service-desc">Retrofit-адаптація: Безкоштовна швидка зарядка по Європі, E-SIM для Європи, підшивка фар та стоп-сигналів.</div>
-    </div>
-
-    <div class="service-card reveal">
-      <span class="service-icon">🚗</span>
-      <div class="service-name">Автопілот</div>
-      <div class="service-desc">Встановлення та ремонт Автопілоту. Підключення та налаштування по всій Україні.</div>
-    </div>
-
-    <div class="service-card reveal">
-      <span class="service-icon">📊</span>
-      <div class="service-name">Коригування параметрів</div>
-      <div class="service-desc">Коригування пробігу MS / MX / MY / M3, скрутка спожитих кВт·год.</div>
-    </div>
-
-    <div class="service-card reveal">
-      <span class="service-icon">🌐</span>
-      <div class="service-name">Навігація та Інтернет</div>
-      <div class="service-desc">Підключення та налаштування будь якої навігації, інтернету та онлайн-сервісів Tesla.</div>
-    </div>
-
-    <div class="service-card reveal">
-      <span class="service-icon">👤</span>
-      <div class="service-name">Аккаунт Tesla</div>
-      <div class="service-desc">Прив'язка авто до аккаунту Tesla, відновлення доступу, налаштування профілю.</div>
-    </div>
-
-    <div class="service-card reveal">
-      <span class="service-icon">🔋</span>
-      <div class="service-name">Відновлення АКБ 16V</div>
-      <div class="service-desc">Відновлення та діагностика допоміжного акумулятора 16V на всіх моделях Tesla.</div>
-    </div>
-
-    <div class="service-card reveal">
-      <span class="service-icon">...</span>
-      <div class="service-name">І багато іншого</div>
-      <div class="service-desc">Ми надаємо ще більше послуг, пишіть і розберем кожну проблему індивідуально.</div>
-    </div>
-
+  <!-- RIVIAN -->
+  <div class="services-grid brand-content" id="services-rivian">
+    <div class="service-card reveal"><span class="service-icon">⚡</span><div class="service-name">Прошивка та оновлення ПЗ</div><div class="service-desc">Ручне оновлення ПЗ до останньої версії, відновлення після збоїв, прошивка модулів.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🔍</span><div class="service-name">Діагностика системи</div><div class="service-desc">Повна діагностика всіх модулів Rivian. Зчитування та аналіз помилок.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🔄</span><div class="service-name">Скидання крашів / помилок</div><div class="service-desc">Відновлення після програмних крашів, очистка критичних помилок системи.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🔐</span><div class="service-name">Відновлення сертифікатів</div><div class="service-desc">Відновлення сертифікатів безпеки та шифрування для всіх моделей Rivian.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🔑</span><div class="service-name">Підшивка ключів фобів / карточок</div><div class="service-desc">Програмування нових ключів, карт доступу та брелоків до автомобіля.</div></div>
+    <div class="service-card reveal"><span class="service-icon">⚙️</span><div class="service-name">Конфігурація системи</div><div class="service-desc">Налаштування системних параметрів та персоналізація функцій.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🚀</span><div class="service-name">Перформанс на дуал мотор</div><div class="service-desc">Підвищення продуктивності двомоторних версій R1T та R1S.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🚛</span><div class="service-name">Електрична кришка пікапа</div><div class="service-desc">Установка та налаштування електропривода задньої кришки для R1T.</div></div>
+    <div class="service-card reveal"><span class="service-icon">...</span><div class="service-name">І багато іншого</div><div class="service-desc">Ми надаємо ще більше послуг, пишіть і розберем кожну проблему індивідуально.</div></div>
   </div>
 </section>
 
@@ -845,61 +768,42 @@
 <section id="why">
   <div class="why-grid">
     <div class="why-visual">
-      <div class="why-ring"></div>
-      <div class="why-ring"></div>
-      <div class="why-ring"></div>
+      <div class="why-ring" id="ring1"></div>
+      <div class="why-ring" id="ring2"></div>
+      <div class="why-ring" id="ring3"></div>
       <div class="why-center">
         <span class="why-center-icon">⚡</span>
-        <div class="why-center-label">TESLA.OS</div>
+        <div class="why-center-label" id="why-label">TESLA.OS</div>
       </div>
     </div>
-
     <div>
       <div class="section-label reveal">// Чому ми</div>
-      <h2 class="section-title reveal">Ми знаємо Tesla<br>зсередини</h2>
+      <h2 class="section-title reveal" id="why-title"></h2>
       <div class="advantages">
         <div class="advantage reveal">
           <div class="adv-icon">🎯</div>
-          <div>
-            <div class="adv-title">Вузька спеціалізація</div>
-            <div class="adv-text">Тільки Tesla. Жодних універсальних сервісів — ми знаємо архітектуру кожної моделі на рівні заводу.</div>
-          </div>
+          <div><div class="adv-title">Вузька спеціалізація</div><div class="adv-text" id="adv-spec"></div></div>
         </div>
         <div class="advantage reveal">
           <div class="adv-icon">🛠️</div>
-          <div>
-            <div class="adv-title">Рівень заводського ПЗ</div>
-            <div class="adv-text">Доступ до Factory Mode, заводських інструментів діагностики і прошивки — як у офіційному сервісі Tesla.</div>
-          </div>
+          <div><div class="adv-title" id="adv-tools-title"></div><div class="adv-text" id="adv-tools-text"></div></div>
         </div>
         <div class="advantage reveal">
           <div class="adv-icon">⚡</div>
-          <div>
-            <div class="adv-title">Швидко і прозоро</div>
-            <div class="adv-text">Розповідаємо що робимо і чому. Без зайвих дій і прихованих доплат.</div>
-          </div>
+          <div><div class="adv-title">Швидко і прозоро</div><div class="adv-text">Розповідаємо що робимо і чому. Без зайвих дій і прихованих доплат.</div></div>
         </div>
         <div class="advantage reveal">
           <div class="adv-icon">📍</div>
-          <div>
-            <div class="adv-title">Вінниця — ми поруч</div>
-            <div class="adv-text">Локальний сервіс з особистим підходом. Швидко домовитись, зручно приїхати.</div>
-          </div>
+          <div><div class="adv-title" id="adv-city-title"></div><div class="adv-text" id="adv-city-text"></div></div>
         </div>
         <div class="advantage reveal">
           <div class="adv-icon">🚗</div>
-          <div>
-            <div class="adv-title">Робота на виїзд</div>
-            <div class="adv-text">Якщо автомобіль не на ходу, або не можете під'їхати, ми приїдемо самі.</div>
-          </div>
-        </div>  
+          <div><div class="adv-title">Робота на виїзд</div><div class="adv-text">Якщо автомобіль не на ходу, або не можете під'їхати, ми приїдемо самі.</div></div>
+        </div>
         <div class="advantage reveal">
           <div class="adv-icon">💻</div>
-          <div>
-            <div class="adv-title">Віддалена робота</div>
-            <div class="adv-text">Знаходитесь в другому місті/країні? Не біда, все що потрібно це ноутбук та спеціальний кабель.</div>
-          </div>
-        </div>  
+          <div><div class="adv-title">Віддалена робота</div><div class="adv-text">Знаходитесь в іншому місті/країні? Не біда, все що потрібно це ноутбук та спеціальний кабель.</div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -914,54 +818,47 @@
       <div class="contact-methods reveal">
         <a href="tel:+380956835631" class="contact-method">
           <div class="cm-icon">📞</div>
-          <div>
-            <div class="cm-label">Телефон</div>
-            <div class="cm-value">+38 (095) 683-56-31</div>
-          </div>
+          <div><div class="cm-label">Телефон</div><div class="cm-value">+38 (095) 683-56-31</div></div>
         </a>
-        <a href="https://t.me/teslacode_vn" class="contact-method" target="_blank">
-          <div class="cm-icon">✈️</div>
-          <div>
-            <div class="cm-label">Telegram</div>
-            <div class="cm-value">@teslacode_vn</div>
-          </div>
+        <a href="https://t.me/teslacode_vn" class="contact-method brand-content active" id="tg-tesla" target="_blank">
+          <div class="cm-icon">✉️</div>
+          <div><div class="cm-label">Telegram</div><div class="cm-value">@teslacode_vn</div></div>
+        </a>
+        <a href="https://t.me/rivian_os_ua" class="contact-method brand-content" id="tg-rivian" target="_blank">
+          <div class="cm-icon">✉️</div>
+          <div><div class="cm-label">Telegram</div><div class="cm-value">@rivian_os_ua</div></div>
         </a>
         <a href="https://wa.me/380956835631" class="contact-method" target="_blank">
           <div class="cm-icon">💬</div>
-          <div>
-            <div class="cm-label">Viber/WhatsApp</div>
-            <div class="cm-value">+38 (095) 683-56-31</div>
-          </div>
+          <div><div class="cm-label">Viber/WhatsApp</div><div class="cm-value">+38 (095) 683-56-31</div></div>
         </a>
       </div>
     </div>
-
     <div>
       <div class="contact-info-block reveal">
         <div class="info-row">
           <span class="info-icon">📍</span>
           <div>
-            <div class="info-label">Місто</div>
-            <div class="info-value">Вінниця, Україна</div>
+            <div class="info-label" id="city-label">Міста</div>
+            <div class="info-value" id="city-value">Вінниця, Львів, Україна</div>
           </div>
         </div>
         <div class="info-row">
           <span class="info-icon">🕐</span>
           <div>
             <div class="info-label">Графік роботи</div>
-            <div class="info-value">Пн–Нд: 9:00 – 0:00</div>
+            <div class="info-value" id="schedule">Пн–Нд: 9:00 – 0:00</div>
           </div>
         </div>
         <div class="info-row">
           <span class="info-icon">🚗</span>
           <div>
             <div class="info-label">Спеціалізація</div>
-            <div class="info-value">Всі моделі Tesla</div>
+            <div class="info-value" id="specialization">Всі моделі Tesla</div>
           </div>
         </div>
       </div>
-
-      <div class="contact-cta reveal">
+      <div class="contact-cta reveal" id="contact-cta">
         <p>Напишіть або зателефонуйте — <strong>відповімо протягом години</strong> і підберемо зручний час.</p>
         <a href="tel:+380956835631" class="btn-primary" style="display:inline-flex;">⚡ Зателефонувати зараз</a>
       </div>
@@ -971,14 +868,190 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">TESLA<span>.OS</span></div>
-  <div class="footer-copy">© 2026 TESLA.OS Vinnytsia</div>
-  <div class="footer-disc">Незалежний сервіс. Не пов'язаний з Tesla, Inc.</div>
+  <div class="footer-logo" id="footer-logo">TESLA<span>.OS</span></div>
+  <div class="footer-copy" id="footer-copy">© 2026 TESLA.OS Vinnytsia</div>
+  <div class="footer-disc" id="footer-disc">Незалежний сервіс. Не пов'язаний з Tesla, Inc.</div>
 </footer>
 
 <script>
+  let currentBrand = 'tesla';
+
+  const data = {
+    tesla: {
+      accent:       '#E31937',
+      accentGlow:   'rgba(227,25,55,0.4)',
+      gridRGBA:     '227,25,55',
+      badge:        'Вінниця · Львів · Спеціалізація Tesla',
+      h1:           'Програмний<br>сервіс для <em>Tesla</em>',
+      sub:          'Прошивка, діагностика Factory Mode, активація прихованих функцій та ремонт Автопілоту — на рівні заводу Tesla.',
+      servicesDesc: 'Повний спектр програмних робіт для всіх моделей Tesla — від діагностики до розширених налаштувань.',
+      statServices: '10<span>+</span>',
+      statCities:   '2<span> міста</span>',
+      whyLabel:     'TESLA.OS',
+      whyTitle:     'Ми знаємо Tesla<br>зсередини',
+      advSpec:      'Тільки Tesla. Жодних універсальних сервісів — ми знаємо архітектуру кожної моделі на рівні заводу.',
+      advToolsTitle:'Рівень заводського ПЗ',
+      advToolsText: 'Доступ до Factory Mode, заводських інструментів діагностики і прошивки — як у офіційному сервісі Tesla.',
+      advCityTitle: 'Вінниця та Львів',
+      advCityText:  'Працюємо у двох містах. Локальний сервіс з особистим підходом.',
+      cityLabel:    'Міста',
+      cityValue:    'Вінниця, Львів, Україна',
+      schedule:     'Пн–Нд: 9:00 – 0:00',
+      spec:         'Всі моделі Tesla',
+      footerLogo:   'TESLA<span>.OS</span>',
+      footerCopy:   '© 2026 TESLA.OS Vinnytsia',
+      footerDisc:   "Незалежний сервіс. Не пов'язаний з Tesla, Inc.",
+      pageTitle:    'TESLA.OS — Програмування Tesla Вінниця | Прошивка, Діагностика, Автопілот',
+      carImg:       'tesla.png',
+      carAlt:       'Tesla',
+    },
+    rivian: {
+      accent:       '#FF6B1A',
+      accentGlow:   'rgba(255,107,26,0.4)',
+      gridRGBA:     '255,107,26',
+      badge:        'Вінниця · Львів · Спеціалізація Rivian',
+      h1:           'Програмний<br>сервіс для <em>Rivian</em>',
+      sub:          'Прошивка, діагностика, скидання крашів та оновлення ПЗ — всі роботи на рівні заводу Rivian.',
+      servicesDesc: 'Повний спектр програмних робіт для всіх моделей Rivian — від діагностики до розширених налаштувань.',
+      statServices: '9<span>+</span>',
+      statCities:   '2<span> міста</span>',
+      whyLabel:     'RIVIAN.OS',
+      whyTitle:     'Ми знаємо Rivian<br>зсередини',
+      advSpec:      'Тільки Rivian. Жодних універсальних сервісів — ми знаємо архітектуру R1T та R1S на рівні заводу.',
+      advToolsTitle:'Заводські інструменти',
+      advToolsText: 'Доступ до офіційних діагностичних інструментів та протоколів Rivian.',
+      advCityTitle: 'Вінниця та Львів',
+      advCityText:  'Працюємо у двох містах. Локальний сервіс з особистим підходом.',
+      cityLabel:    'Міста',
+      cityValue:    'Вінниця, Львів, Україна',
+      schedule:     'Пн–Нд: 9:00 – 0:00',
+      spec:         'Всі моделі Rivian',
+      footerLogo:   'RIVIAN<span>.OS</span>',
+      footerCopy:   '© 2026 RIVIAN.OS',
+      footerDisc:   "Незалежний сервіс. Не пов'язаний з Rivian Automotive, Inc.",
+      pageTitle:    'RIVIAN.OS — Програмування Rivian Вінниця та Львів | Прошивка, Діагностика',
+      carImg:       'rivian.png',
+      carAlt:       'Rivian',
+    }
+  };
+
+  function applyRingColors(rgba) {
+    document.getElementById('ring1').style.borderColor = `rgba(${rgba},0.15)`;
+    document.getElementById('ring2').style.borderColor = `rgba(${rgba},0.25)`;
+    document.getElementById('ring3').style.borderColor = `rgba(${rgba},0.15)`;
+  }
+
+  function applyAccentBg(rgba, elements, alpha) {
+    elements.forEach(el => { if (el) el.style.background = `rgba(${rgba},${alpha})`; });
+  }
+
+  function setBrand(brand) {
+    if (brand === currentBrand) return;
+    currentBrand = brand;
+
+    const d = data[brand];
+    const r = document.documentElement;
+
+    // CSS vars
+    r.style.setProperty('--accent', d.accent);
+    r.style.setProperty('--accent-glow', d.accentGlow);
+
+    // Hero grid & glow
+    const g = d.gridRGBA;
+    document.getElementById('hero-grid').style.backgroundImage =
+      `linear-gradient(rgba(${g},0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(${g},0.04) 1px, transparent 1px)`;
+    document.getElementById('hero-glow').style.background =
+      `radial-gradient(circle, rgba(${g},0.12) 0%, transparent 70%)`;
+
+    // Text content
+    document.getElementById('hero-badge').innerHTML = d.badge;
+    document.getElementById('hero-h1').innerHTML = d.h1;
+    document.getElementById('hero-sub').innerHTML = d.sub;
+    document.getElementById('stat-services').innerHTML = d.statServices;
+    document.getElementById('stat-cities').innerHTML = d.statCities;
+    document.getElementById('services-desc').textContent = d.servicesDesc;
+    document.getElementById('why-label').textContent = d.whyLabel;
+    document.getElementById('why-title').innerHTML = d.whyTitle;
+    document.getElementById('adv-spec').textContent = d.advSpec;
+    document.getElementById('adv-tools-title').textContent = d.advToolsTitle;
+    document.getElementById('adv-tools-text').textContent = d.advToolsText;
+    document.getElementById('adv-city-title').textContent = d.advCityTitle;
+    document.getElementById('adv-city-text').textContent = d.advCityText;
+    document.getElementById('city-label').textContent = d.cityLabel;
+    document.getElementById('city-value').textContent = d.cityValue;
+    document.getElementById('schedule').textContent = d.schedule;
+    document.getElementById('specialization').textContent = d.spec;
+    document.getElementById('footer-logo').innerHTML = d.footerLogo;
+    document.getElementById('footer-copy').textContent = d.footerCopy;
+    document.getElementById('footer-disc').textContent = d.footerDisc;
+    document.title = d.pageTitle;
+
+    // Car image
+    const car = document.getElementById('hero-car');
+    car.src = d.carImg;
+    car.alt = d.carAlt;
+    car.style.filter = `drop-shadow(0 0 48px ${d.accentGlow})`;
+
+    // Contact CTA
+    const cta = document.getElementById('contact-cta');
+    cta.style.background = `linear-gradient(135deg, rgba(${g},0.12), rgba(${g},0.04))`;
+    cta.style.border = `1px solid rgba(${g},0.3)`;
+
+    // Ring colors
+    applyRingColors(g);
+
+    // adv-icon, cm-icon backgrounds
+    applyAccentBg(g, document.querySelectorAll('.adv-icon, .cm-icon'), 0.1);
+
+    // Services grid swap
+    document.getElementById('services-tesla').classList.toggle('active', brand === 'tesla');
+    document.getElementById('services-rivian').classList.toggle('active', brand === 'rivian');
+
+    // Telegram swap
+    document.getElementById('tg-tesla').classList.toggle('active', brand === 'tesla');
+    document.getElementById('tg-rivian').classList.toggle('active', brand === 'rivian');
+
+    // Switcher buttons
+    document.getElementById('btn-tesla').className  = 'brand-btn ' + (brand === 'tesla'  ? 'active' : 'inactive');
+    document.getElementById('btn-rivian').className = 'brand-btn ' + (brand === 'rivian' ? 'active' : 'inactive');
+
+    // Re-trigger reveals for newly visible elements
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.92) el.classList.add('visible');
+      });
+    }, 60);
+  }
+
+  // Init Tesla on load
+  (function initTesla() {
+    const d = data.tesla;
+    const g = d.gridRGBA;
+    document.getElementById('hero-badge').innerHTML = d.badge;
+    document.getElementById('hero-h1').innerHTML = d.h1;
+    document.getElementById('hero-sub').innerHTML = d.sub;
+    document.getElementById('stat-services').innerHTML = d.statServices;
+    document.getElementById('stat-cities').innerHTML = d.statCities;
+    document.getElementById('services-desc').textContent = d.servicesDesc;
+    document.getElementById('why-title').innerHTML = d.whyTitle;
+    document.getElementById('adv-spec').textContent = d.advSpec;
+    document.getElementById('adv-tools-title').textContent = d.advToolsTitle;
+    document.getElementById('adv-tools-text').textContent = d.advToolsText;
+    document.getElementById('adv-city-title').textContent = d.advCityTitle;
+    document.getElementById('adv-city-text').textContent = d.advCityText;
+    document.getElementById('hero-grid').style.backgroundImage =
+      `linear-gradient(rgba(${g},0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(${g},0.04) 1px, transparent 1px)`;
+    document.getElementById('hero-glow').style.background =
+      `radial-gradient(circle, rgba(${g},0.12) 0%, transparent 70%)`;
+    document.getElementById('hero-car').style.filter = `drop-shadow(0 0 48px ${d.accentGlow})`;
+    const cta = document.getElementById('contact-cta');
+    cta.style.background = `linear-gradient(135deg, rgba(${g},0.12), rgba(${g},0.04))`;
+    cta.style.border = `1px solid rgba(${g},0.3)`;
+    applyRingColors(g);
+  })();
+
   // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
@@ -987,9 +1060,9 @@
       }
     });
   }, { threshold: 0.1 });
-  reveals.forEach(el => io.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // Smooth nav highlight
+  // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
